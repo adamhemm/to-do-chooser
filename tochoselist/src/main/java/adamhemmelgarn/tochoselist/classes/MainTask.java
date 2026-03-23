@@ -17,7 +17,9 @@ public class MainTask {
 		taskName = name;
 		taskDescription = description;
 		numberOfSubTasks = subNumber;
-		subTaskList = new SubTask[subNumber];
+		if((subNumber>0)&&(subNumber<=6)) {
+			subTaskList = new SubTask[subNumber];
+		}
 	}
 	
 	public void selectTask() {

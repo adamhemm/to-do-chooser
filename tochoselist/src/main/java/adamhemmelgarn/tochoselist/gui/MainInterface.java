@@ -3,6 +3,8 @@ package adamhemmelgarn.tochoselist.gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import adamhemmelgarn.tochoselist.logic.*;
+import adamhemmelgarn.tochoselist.classes.*;
 
 public class MainInterface {
 	
@@ -13,9 +15,12 @@ public class MainInterface {
 	private JPanel mainPanel;
 	private JTextField taskName;
 	private JTextArea taskDescription;
+	private JButton addTaskButton;
+	private ListHandler listHandler;
 	
 	public MainInterface() {
 		SetUpGUI();
+		listHandler = new ListHandler();
 	}
 	
 	private void SetUpGUI() {
@@ -30,7 +35,18 @@ public class MainInterface {
 		descriptionLabel = new JLabel("Description", JLabel.CENTER);
 		
 		taskName = new JTextField(1);
+		taskName.setText("");
 		taskDescription = new JTextArea(1,1);
+		taskDescription.setText("");
+		
+		addTaskButton = new JButton("Add Task");
+		addTaskButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String tempName = taskName.getText();
+				String tempDesc = taskDescription.getText();
+				listHandler.AddTask(tempName, tempDesc);
+			}
+		});
 		
 		mainFrame.addWindowListener(new WindowAdapter() {
 			public void WindowClosing(WindowEvent windowEvent) {
@@ -44,6 +60,7 @@ public class MainInterface {
 		mainPanel.add(taskName);
 		mainPanel.add(descriptionLabel);
 		mainPanel.add(taskDescription);
+		mainPanel.add(addTaskButton);
 		
 		mainFrame.add(headerLabel);
 		mainFrame.add(mainPanel);
